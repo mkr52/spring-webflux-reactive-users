@@ -1,4 +1,4 @@
-package com.appsdevblog.reactive.ws.users.controller;
+package com.appsdevblog.reactive.ws.users.model;
 
 import java.util.UUID;
 
