@@ -15,11 +15,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final ReactiveAuthenticationManager reactiveAuthenticationManager;
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     public AuthenticationServiceImpl(ReactiveAuthenticationManager reactiveAuthenticationManager,
-                                     UserRepository userRepository) {
+                                     UserRepository userRepository, JwtService jwtService) {
         this.reactiveAuthenticationManager = reactiveAuthenticationManager;
         this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private Map<String, String> createAuthResponse(UserEntity user) {
             Map<String, String> result = new HashMap<>();
             result.put("userId", user.getId().toString());
-            result.put("token", "JWT");
+            result.put("token", jwtService.generateJwt(user.getId().toString()));
             return result;
     }
 }
